@@ -2,7 +2,6 @@ import {Request, Response} from "express";
 const express = require('express');
 import SwaggerUi from "swagger-ui-express";
 import swaggerSpec from "../config/swagger";
-import "dotenv/config"
 
 export default class Server {
     readonly port
@@ -14,7 +13,6 @@ export default class Server {
     start () {
 
         const app = express();
-        console.log(process.env.PORT);
 
         // Middleware
         app.use(express.json());
