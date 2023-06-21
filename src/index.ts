@@ -1,7 +1,14 @@
 import Server from "./server";
-import express from "express";
+import express, {Router} from "express";
+import "dotenv/config"
+import db from "../config/db";
+
 const app = express();
 
-const server = new Server(4000);
+// @ts-ignore
+const server = new Server(process.env.PORT);
+// @ts-ignore
+const database = new db(process.env.URI_DB);
 
+database.run();
 server.start();

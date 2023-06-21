@@ -1,8 +1,8 @@
 import {Request, Response} from "express";
-const express = require('express');
 import SwaggerUi from "swagger-ui-express";
-import swaggerSpec from "../config/swagger";
-import "dotenv/config"
+import options from "../config/swagger";
+
+const express = require('express');
 
 export default class Server {
     readonly port
@@ -14,11 +14,11 @@ export default class Server {
     start () {
 
         const app = express();
-        console.log(process.env.PORT);
 
         // Middleware
         app.use(express.json());
-        app.use('/docs', SwaggerUi.serve, SwaggerUi.setup(swaggerSpec));
+        app.use('/docs', SwaggerUi.serve);
+        app.get('/docs', SwaggerUi.setup(options));
 
         app.get('/', (req: Request, res: Response) => {
             res.send("Bonjour test");
