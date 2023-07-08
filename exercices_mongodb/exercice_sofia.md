@@ -300,30 +300,40 @@ db.salles.find(
 
 Affichez le nom des salles dont au moins un des avis comporte une note comprise entre 8 et 10 (tous deux inclus).
 ````js 
-
+db.salles.find(
+    {"avis.note": {$gte: 8, $lte: 10}},
+    {_id : 0, adresse : 0, styles : 0, avis : 0, capacite : 0, smac : 0}
+)
 ````
 #### Résultat
-![Shell](pictures/)
+![Shell](pictures/Exercice2/Ex9-RoomReviewBetween8and10.PNG)
 
 ---
 ### Exercice n°10
 
 Affichez le nom des salles dont au moins un des avis comporte une date postérieure au 15/11/2019 (pensez à utiliser le type JavaScript Date).
 ````js 
-
+db.salles.find(
+    {"avis.date": {$gt : ISODate("2019-11-15")}},
+    {_id : 0, adresse : 0, styles : 0, avis : 0, capacite : 0, smac : 0}
+)
 ````
 #### Résultat
-![Shell](pictures/)
+![Shell](pictures/Exercice2/Ex10-RoomReviewGT2019-11-15.PNG)
 
 ---
 ### Exercice n°11
 
 Affichez le nom ainsi que la capacité des salles dont le produit de la valeur de l’identifiant par 100 est strictement supérieur à la capacité.
 ````js 
-
+db.salles.aggregate( [
+    { $match:  {  $expr: { $gt: [ { $multiply : [ "$_id", 100 ]}, "$capacite" ] } } },
+    { $project : {_id: 0, nom: 1, capacite: 1}}
+] )
 ````
+
 #### Résultat
-![Shell](pictures/)
+![Shell](pictures/Exercice2/Ex11-IdMultiply100GTCapacity.PNG)
 
 ---
 ### Exercice n°12
