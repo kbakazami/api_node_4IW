@@ -1,5 +1,5 @@
 import Server from "./server";
-import express from "express";
+import express, {Router} from "express";
 import "dotenv/config"
 import db from "../config/db";
 

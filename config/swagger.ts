@@ -1,18 +1,12 @@
-import SwaggerJSDoc from "swagger-jsdoc";
+// Desc: Swagger configuration file
 
-// Swagger config
-const swaggerDefinition = {
-    openapi: '3.0.0',
+const options = {
+    openapi: '3.1.0',
     info: {
         title: 'Express API',
         version: '1.0.0'
-    }
-}
-
-const options = {
-    swaggerDefinition,
+    },
     apis: ['./routes/*.ts'],
 }
 
-const swaggerSpec = SwaggerJSDoc(options);
-export default swaggerSpec;
+export default options;
