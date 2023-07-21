@@ -6,21 +6,21 @@ Insérez les documents suivants dans la collection "employees":
 ````js
 {
     name: "John Doe",
-    age: 35,
-    job: "Manager",
-    salary: 80000
+        age: 35,
+        job: "Manager",
+        salary: 80000
 }
 
 {
     name: "Jane Doe",
-    age: 32,
+        age: 32,
     job: "Developer",
     salary: 75000
 }
 
 {
     name: "Jim Smith",
-    age: 40,
+        age: 40,
     job: "Manager",
     salary: 85000
 }
@@ -112,68 +112,68 @@ db.employees.updateMany(
 Voici la base de données qui permet d'effectuer la série d'exercices :
 
 ```js
-db.salles.insertMany([ 
-   { 
-       "_id": 1, 
-       "nom": "AJMI Jazz Club", 
-       "adresse": { 
-           "numero": 4, 
-           "voie": "Rue des Escaliers Sainte-Anne", 
-           "codePostal": "84000", 
-           "ville": "Avignon", 
-           "localisation": { 
-               "type": "Point", 
-               "coordinates": [43.951616, 4.808657] 
-           } 
-       }, 
-       "styles": ["jazz", "soul", "funk", "blues"], 
-       "avis": [{ 
-               "date": new Date('2019-11-01'), 
-               "note": NumberInt(8) 
-           }, 
-           { 
-               "date": new Date('2019-11-30'), 
-               "note": NumberInt(9) 
-           } 
-       ], 
-       "capacite": NumberInt(300), 
-       "smac": true 
-   }, { 
-       "_id": 2, 
-       "nom": "Paloma", 
-       "adresse": { 
-           "numero": 250, 
-           "voie": "Chemin de l'Aérodrome", 
-           "codePostal": "30000", 
-           "ville": "Nîmes", 
-           "localisation": { 
-               "type": "Point", 
-               "coordinates": [43.856430, 4.405415] 
-           } 
-       }, 
-       "avis": [{ 
-               "date": new Date('2019-07-06'), 
-               "note": NumberInt(10) 
-           } 
-       ], 
-       "capacite": NumberInt(4000), 
-       "smac": true 
-   }, 
-    { 
-       "_id": 3, 
-       "nom": "Sonograf", 
-       "adresse": { 
-           "voie": "D901", 
-           "codePostal": "84250", 
-           "ville": "Le Thor", 
-           "localisation": { 
-               "type": "Point", 
-               "coordinates": [43.923005, 5.020077] 
-           } 
-       }, 
-       "capacite": NumberInt(200), 
-       "styles": ["blues", "rock"] 
-   } 
+db.salles.insertMany([
+    {
+        "_id": 1,
+        "nom": "AJMI Jazz Club",
+        "adresse": {
+            "numero": 4,
+            "voie": "Rue des Escaliers Sainte-Anne",
+            "codePostal": "84000",
+            "ville": "Avignon",
+            "localisation": {
+                "type": "Point",
+                "coordinates": [43.951616, 4.808657]
+            }
+        },
+        "styles": ["jazz", "soul", "funk", "blues"],
+        "avis": [{
+            "date": new Date('2019-11-01'),
+            "note": NumberInt(8)
+        },
+            {
+                "date": new Date('2019-11-30'),
+                "note": NumberInt(9)
+            }
+        ],
+        "capacite": NumberInt(300),
+        "smac": true
+    }, {
+        "_id": 2,
+        "nom": "Paloma",
+        "adresse": {
+            "numero": 250,
+            "voie": "Chemin de l'Aérodrome",
+            "codePostal": "30000",
+            "ville": "Nîmes",
+            "localisation": {
+                "type": "Point",
+                "coordinates": [43.856430, 4.405415]
+            }
+        },
+        "avis": [{
+            "date": new Date('2019-07-06'),
+            "note": NumberInt(10)
+        }
+        ],
+        "capacite": NumberInt(4000),
+        "smac": true
+    },
+    {
+        "_id": 3,
+        "nom": "Sonograf",
+        "adresse": {
+            "voie": "D901",
+            "codePostal": "84250",
+            "ville": "Le Thor",
+            "localisation": {
+                "type": "Point",
+                "coordinates": [43.923005, 5.020077]
+            }
+        },
+        "capacite": NumberInt(200),
+        "styles": ["blues", "rock"]
+    }
 ]) 
 ```
 
@@ -236,7 +236,7 @@ db.salles.find(
 
 Affichez tous les styles musicaux des salles qui programment notamment du blues.
 ````js 
-db.salles.find( 
+db.salles.find(
     {styles: { $all: ["blues"] }},
     {_id : 0, nom : 0, adresse : 0, avis : 0, capacite : 0, smac : 0}
 )
@@ -257,8 +257,8 @@ db.salles.find(
 Affichez tous les styles musicaux des salles qui ont le style « blues » en première position dans leur tableau styles.
 ````js 
 db.salles.find(
-  {"styles.0" : {$in: ["blues"]}},
-  {_id : 0, adresse : 0, capacite : 0, avis : 0, smac : 0}
+    {"styles.0" : {$in: ["blues"]}},
+    {_id : 0, adresse : 0, capacite : 0, avis : 0, smac : 0}
 )
 ````
 #### Résultat
@@ -271,9 +271,9 @@ Affichez la ville des salles dont le code postal commence par 84 et qui ont une 
 ````js 
 db.salles.find(
     { $and: [
-        { "adresse.codePostal" : { $regex : /84*/ } },
-        { "capacite": {$lt : 500}}
-    ]},
+            { "adresse.codePostal" : { $regex : /84*/ } },
+            { "capacite": {$lt : 500}}
+        ]},
     {"adresse.voie" : 0, "adresse.codePostal" : 0, "adresse.localisation" : 0, "adresse.numero" : 0, capacite : 0, styles : 0, smac : 0, avis : 0, _id : 0, nom : 0}
 )
 ````
@@ -285,11 +285,11 @@ db.salles.find(
 Affichez l’identifiant pour les salles dont l’identifiant est pair ou le champ avis est absent.
 ````js 
 db.salles.find(
-  {$or: [
-    {"_id": {$mod : [2,0]}},
-    {"avis": {$exists : 0}}
-  ]},
-  {nom : 0, adresse : 0, avis : 0, capacite : 0, smac : 0, styles : 0}
+    {$or: [
+            {"_id": {$mod : [2,0]}},
+            {"avis": {$exists : 0}}
+        ]},
+    {nom : 0, adresse : 0, avis : 0, capacite : 0, smac : 0, styles : 0}
 )
 ````
 #### Résultat
@@ -350,129 +350,199 @@ Affichez le nom des salles de type SMAC programmant plus de deux styles de musiq
 
 Affichez les différents codes postaux présents dans les documents de la collection salles.
 ````js 
-
+db.salles.find(
+    {"adresse.codePostal": {	$exists: 1 }},
+    {"_id":0, "adresse.codePostal":1}
+)
 ````
 #### Résultat
-![Shell](pictures/)
+![Shell](pictures/Exercice2/Ex13-DisplayAllPostalCode.png)
 
 ---
 ### Exercice n°14
 
 Mettez à jour tous les documents de la collection salles en rajoutant 100 personnes à leur capacité actuelle.
 ````js 
-
+db.salles.updateMany(
+    {capacite : { $exists: 1}},
+    [
+        { $set: {capacite: { $sum: [ "$capacite", 100 ] }}}
+    ]
+)
 ````
-#### Résultat
-![Shell](pictures/)
+#### Résultat (Sortie du shell + vue compass) :
+![Shell](pictures/Exercice2/Ex14-UpdateCapaciteSum100Shell.png)
+![Documents](pictures/Exercice2/Ex14-UpdateCapaciteSum100Documents.png)
 
 ---
 ### Exercice n°15
 
 Ajoutez le style « jazz » à toutes les salles qui n’en programment pas.
 ````js 
-
+db.salles.updateMany(
+    {"styles.jazz" : { $exists: 0}},
+    { $addToSet: {styles: "jazz" }}
+)
 ````
-#### Résultat
-![Shell](pictures/)
+#### Résultat (Sortie du shell + vue compass) :
+![Shell](pictures/Exercice2/Ex15-AddStyleJazzWhereNotExistShell.png)
+![Documents](pictures/Exercice2/Ex15-AddStyleJazzWhereNotExistDocuments.png)
 
 ---
 ### Exercice n°16
 
 Retirez le style «funk» à toutes les salles dont l’identifiant n’est égal ni à 2, ni à 3.
 ````js 
-
+db.salles.updateMany(
+    {"_id" : { $ne: 2, $ne: 3 } },
+    { $pull : {styles: "funk" }}
+)
 ````
-#### Résultat
-![Shell](pictures/)
+#### Résultat (Sortie du shell + vue compass) :
+![Shell](pictures/Exercice2/Ex16-RemoveFunkStyleIdNot2And3Shell.png)
+![Documents](pictures/Exercice2/Ex16-RemoveFunkStyleIdNot2And3Documents.png)
 
 ---
 ### Exercice n°17
 
 Ajoutez un tableau composé des styles «techno» et « reggae » à la salle dont l’identifiant est 3.
 ````js 
-
+db.salles.updateOne(
+    { _id: 3},
+    { $addToSet: {styles: ["techno", "reggae"] } }
+)
 ````
-#### Résultat
-![Shell](pictures/)
+#### Résultat (Sortie du shell + vue compass) :
+![Shell](pictures/Exercice2/Ex17-AddStyleTechnoRaggaeToId3Shell.png)
+![Documents](pictures/Exercice2/Ex17-AddStyleTechnoRaggaeToId3Documents.png)
 
 ---
 ### Exercice n°18
 
 Pour les salles dont le nom commence par la lettre P (majuscule ou minuscule), augmentez la capacité de 150 places et rajoutez un champ de type tableau nommé contact dans lequel se trouvera un document comportant un champ nommé telephone dont la valeur sera « 04 11 94 00 10 ».
 ````js 
-
+db.salles.updateMany(
+    {"nom" : { $regex: "(?i)p"}},
+    [
+        { $set:
+                {
+                    capacite: {$sum: ["$capacite", 150] },
+                    contact: [{telephone : "04 11 94 00 10"}]
+                }
+        }
+    ]
+)
 ````
-#### Résultat
-![Shell](pictures/)
+#### Résultat (Sortie du shell + vue compass) :
+![Shell](pictures/Exercice2/Ex18-AddContactAndAdd150CapacityWherePShell.png)
+![Documents](pictures/Exercice2/Ex18-AddContactAndAdd150CapacityWherePDocuments.png)
 
 ---
 ### Exercice n°19
 
 Pour les salles dont le nom commence par une voyelle (peu importe la casse, là aussi), rajoutez dans le tableau avis un document composé du champ date valant la date courante et du champ note valant 10 (double ou entier). L’expression régulière pour chercher une chaîne de caractères débutant par une voyelle suivie de n’importe quoi d’autre est [^aeiou]+$.
 ````js 
-
+db.salles.updateMany(
+    {"nom" : { $regex: "(?i)^[aeiou]"}},
+    [
+        {
+            $set: { avis: { $concatArrays: ["$avis", [{date: "$$NOW", note: 10 } ] ] } }
+        }
+    ]
+)
 ````
-#### Résultat
-![Shell](pictures/)
+#### Résultat (Sortie du shell + vue compass) :
+![Shell](pictures/Exercice2/Ex19-AddDocumentToAvisWhereNameStartVowelShell.png)
+![Documents](pictures/Exercice2/Ex19-AddDocumentToAvisWhereNameStartVowelDocuments.png)
 
 ---
 ### Exercice n°20
 
 En mode upsert, vous mettrez à jour tous les documents dont le nom commence par un z ou un Z en leur affectant comme nom « Pub Z », comme valeur du champ capacite 50 personnes (type entier et non décimal) et en positionnant le champ booléen smac à la valeur « false ».
 ````js 
-
+db.salles.updateMany(
+    { "name" : { $regex: "(?i)^z"} },
+    { $set:
+            {
+                "nom": "Pub Z",
+                "capacite" : NumberInt(50),
+                "smac" : false
+            }
+    },
+    { upsert: true }
+)
 ````
-#### Résultat
-![Shell](pictures/)
+#### Résultat (Sortie du shell + vue compass) :
+![Shell](pictures/Exercice2/Ex20-UpsertTrueUpdateWhereZorzShell.png)
+![Documents](pictures/Exercice2/Ex20-UpsertTrueUpdateWhereZorzDocuments.png)
 
 ---
 ### Exercice n°21
 
 Affichez le décompte des documents pour lesquels le champ _id est de type « objectId ».
 ````js 
-
+db.salles.find(
+    {_id: { $type: "objectId"} }
+)
 ````
 #### Résultat
-![Shell](pictures/)
+![Shell](pictures/Exercice2/Ex21-DisplayDocumentsWhereObjectId.png)
 
 ---
 ### Exercice n°22
 
 Pour les documents dont le champ _id n’est pas de type « objectId », affichez le nom de la salle ayant la plus grande capacité. Pour y parvenir, vous effectuerez un tri dans l’ordre qui convient tout en limitant le nombre de documents affichés pour ne retourner que celui qui comporte la capacité maximale.
 ````js 
-
+db.salles.find(
+    { _id: { $not: { $type: "objectId"} } },
+    { _id: 0, nom: 1 }
+).sort( { capacite: -1 } ).limit(1)
 ````
 #### Résultat
-![Shell](pictures/)
+![Shell](pictures/Exercice2/Ex22-DisplayNameWhereMaxCapacityAndNotIdObjectID.png)
 
 ---
 ### Exercice n°23
 
 Remplacez, sur la base de la valeur de son champ _id, le document créé à l’exercice 20 par un document contenant seulement le nom préexistant et la capacité, que vous monterez à 60 personnes.
 ````js 
-
+db.salles.updateOne(
+    { "_id" : ObjectId('64ba43f4e04256a610fa930e')},
+    {
+        $set: {capacite: 60},
+        $unset: { smac : "" }
+    }
+)
 ````
-#### Résultat
-![Shell](pictures/)
+#### Résultat (Sortie du shell + vue compass) :
+![Shell](pictures/Exercice2/Ex23-UpdateByIdIncreaseCapaciteRemoveSmacShell.png)
+![Documents](pictures/Exercice2/Ex23-UpdateByIdIncreaseCapaciteRemoveSmacDocuments.png)
 
 ---
 ### Exercice n°24
 
 Effectuez la suppression d’un seul document avec les critères suivants : le champ _id est de type « objectId » et la capacité de la salle est inférieure ou égale à 60 personnes.
 ````js 
-
+db.salles.deleteOne(
+    { _id: { $type: "objectId" }, capacite: { $lte: 60 } }
+)
 ````
-#### Résultat
-![Shell](pictures/)
+#### Résultat (Sortie du shell + vue compass) :
+![Shell](pictures/Exercice2/Ex24-DeleteOneWhereIdObjectIdAndCapaciteLTE60Shell.png)
+![Documents](pictures/Exercice2/Ex24-DeleteOneWhereIdObjectIdAndCapaciteLTE60Documents.png)
 
 ---
 ### Exercice n°25
 
 À l’aide de la méthode permettant de trouver un seul document et de le mettre à jour en même temps, réduisez de 15 personnes la capacité de la salle située à Nîmes.
 ````js 
-
+db.salles.findOneAndUpdate(
+    { "adresse.ville" : "Nîmes" },
+    { $inc: { capacite : -15 } }
+)
 ````
-#### Résultat
-![Shell](pictures/)
+#### Résultat (Sortie du shell + vue compass) :
+![Shell](pictures/Exercice2/Ex25-FindAndUpdateOneDecreaseCapaciteBy15WhereCityIsNimesShell.png)
+![Documents](pictures/Exercice2/Ex25-FindAndUpdateOneDecreaseCapaciteBy15WhereCityIsNimesDocuments.png)
 
 ---
