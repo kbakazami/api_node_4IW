@@ -1,14 +1,14 @@
-import Server from "./server";
-import express, {Router} from "express";
-import "dotenv/config"
-import db from "../config/db";
+import express, {Application, urlencoded} from 'express';
+import dotenv from 'dotenv';
+import './database';
 
-const app = express();
+dotenv.config();
 
-// @ts-ignore
-const server = new Server(process.env.PORT);
-// @ts-ignore
-const database = new db(process.env.URI_DB);
+const app: Application = express();
 
-database.run();
-server.start();
+app.use(express.json());
+app.use(urlencoded({extended: true}));
+
+app.listen(process.env.PORT, () => {
+    console.log("Server start")
+})
