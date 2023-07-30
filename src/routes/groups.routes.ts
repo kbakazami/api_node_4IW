@@ -8,12 +8,14 @@ import {
     groupAdditionalAmount,
     groupReducedAmount,
     groupDelete,
+    groupGet,
 } from '../controllers/groups.controller';
 
 router.get('/', groupList);
+router.get('/:groupName', groupGet);
 router.post('/', groupCreate);
-router.post('/additional-amount', groupAdditionalAmount);
-router.post('/reduced-amount', groupReducedAmount);
-router.delete('/', groupDelete);
+router.put('/additional-amount/:groupName', groupAdditionalAmount);
+router.put('/reduced-amount/:groupName', groupReducedAmount);
+router.delete('/:groupName', groupDelete);
 
 export default router;

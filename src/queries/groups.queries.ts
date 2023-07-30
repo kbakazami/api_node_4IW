@@ -5,6 +5,11 @@ export const getAllGroups = (): Promise<IGroup[]> => {
     return Group.find();
 }
 
+export const getGroupPerName = (name: String) => {
+    const filter = { name: name };
+    return Group.findOne(filter);
+}
+
 export const createGroup = (group: IGroup) => {
     const newGroup = new Group(group);
     return newGroup.save();

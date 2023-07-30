@@ -1,4 +1,11 @@
-import {getAllGroups, createGroup, additionalAmount, reducedAmount, deleteGroup} from "../queries/groups.queries";
+import {
+    getAllGroups,
+    createGroup,
+    additionalAmount,
+    reducedAmount,
+    deleteGroup,
+    getGroupPerName
+} from "../queries/groups.queries";
 import { Request, Response, NextFunction } from "express";
 
 export const groupList = async (_: Request, res: Response, next: NextFunction) => {
@@ -6,6 +13,16 @@ export const groupList = async (_: Request, res: Response, next: NextFunction) =
         const groups = await getAllGroups();
         res.json(groups);
     } catch(e) {
+        next(e);
+    }
+}
+
+export const groupGet = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const groupName = String(req.params.groupName);
+        const user = await getGroupPerName(groupName);
+        res.json(user);
+    } catch (e) {
         next(e);
     }
 }
@@ -23,7 +40,8 @@ export const groupCreate = async (req: Request, res: Response, next: NextFunctio
 export const groupAdditionalAmount = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const body = req.body;
-        await additionalAmount(body.name, body.amount);
+        const groupName = String(req.params.groupName);
+        await additionalAmount(groupName, body.amount);
         res.json({ message: "Added additionnal amount" });
     } catch (e) {
         next(e);
@@ -33,7 +51,8 @@ export const groupAdditionalAmount = async (req: Request, res: Response, next: N
 export const groupReducedAmount = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const body = req.body;
-        await reducedAmount(body.name, body.amount);
+        const groupName = String(req.params.groupName);
+        await reducedAmount(groupName, body.amount);
         res.json({ message: "Reduced amount" });
     } catch (e) {
         next(e);
@@ -42,8 +61,8 @@ export const groupReducedAmount = async (req: Request, res: Response, next: Next
 
 export const groupDelete = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const body = req.body;
-        await deleteGroup(body.name);
+        const groupName = String(req.params.groupName);
+        await deleteGroup(groupName);
         res.json({ message: "Group successfully deleted"});
     } catch (e) {
         next(e);
