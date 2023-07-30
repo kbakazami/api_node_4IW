@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router} from "express";
 
 const router = Router();
 
@@ -9,13 +9,15 @@ import {
     groupReducedAmount,
     groupDelete,
     groupGet,
+    validate,
+    valueToValidate,
 } from '../controllers/groups.controller';
 
 router.get('/', groupList);
 router.get('/:groupName', groupGet);
-router.post('/', groupCreate);
-router.put('/additional-amount/:groupName', groupAdditionalAmount);
-router.put('/reduced-amount/:groupName', groupReducedAmount);
+router.post('/', valueToValidate("all"), validate, groupCreate);
+router.put('/additional-amount/:groupName',valueToValidate("amount"), validate, groupAdditionalAmount);
+router.put('/reduced-amount/:groupName',valueToValidate("amount"), groupReducedAmount);
 router.delete('/:groupName', groupDelete);
 
 export default router;
