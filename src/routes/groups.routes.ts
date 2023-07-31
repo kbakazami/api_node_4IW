@@ -1,4 +1,5 @@
-import { Router} from "express";
+import { Router } from "express";
+import { ensureAuthenticated } from '../config/guards.config';
 
 const router = Router();
 
@@ -16,8 +17,9 @@ import {
 router.get('/', groupList);
 router.get('/:groupName', groupGet);
 router.post('/', valueToValidate("all"), validate, groupCreate);
-router.put('/additional-amount/:groupName',valueToValidate("amount"), validate, groupAdditionalAmount);
-router.put('/reduced-amount/:groupName',valueToValidate("amount"), groupReducedAmount);
+router.put('/additional-amount/:groupName', ensureAuthenticated, valueToValidate("amount"), validate, groupAdditionalAmount);
+router.put('/reduced-amount/:groupName', ensureAuthenticated, valueToValidate("amount"), groupReducedAmount);
+
 router.delete('/:groupName', groupDelete);
 
 export default router;

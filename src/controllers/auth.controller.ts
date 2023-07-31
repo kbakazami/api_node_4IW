@@ -27,7 +27,8 @@ export const signing = async (req: Request, res: Response, next: NextFunction) =
 
 }
 
-export const signout = (req: Request, _: Response) => {
+export const signout = (req: Request, res: Response) => {
     // @ts-ignore
     req.logout();
+    res.json({ message: 'User logged out successfully' });
 }
