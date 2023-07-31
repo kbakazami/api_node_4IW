@@ -3,10 +3,16 @@ import dotenv from 'dotenv';
 import index from './routes';
 import './database';
 import winston, {createLogger, Logger, transports} from "winston";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
-const app: Application = express();
+export const app: Application = express();
+
+app.use(cookieParser());
+import './config/jwt.config';
+
+
 
 const { combine, timestamp, json, printf } = winston.format;
 export const logger: Logger = createLogger({
