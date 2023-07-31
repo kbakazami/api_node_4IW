@@ -10,13 +10,16 @@ import {
     groupReducedAmount,
     groupDelete,
     groupGet,
+    validate,
+    valueToValidate,
 } from '../controllers/groups.controller';
 
 router.get('/', groupList);
 router.get('/:groupName', groupGet);
-router.post('/', groupCreate);
-router.put('/additional-amount/:groupName', ensureAuthenticated, groupAdditionalAmount);
-router.put('/reduced-amount/:groupName', ensureAuthenticated, groupReducedAmount);
+router.post('/', valueToValidate("all"), validate, groupCreate);
+router.put('/additional-amount/:groupName', ensureAuthenticated, valueToValidate("amount"), validate, groupAdditionalAmount);
+router.put('/reduced-amount/:groupName', ensureAuthenticated, valueToValidate("amount"), groupReducedAmount);
+
 router.delete('/:groupName', groupDelete);
 
 export default router;

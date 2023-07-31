@@ -6,8 +6,10 @@ import {
     deleteGroup,
     getGroupPerName
 } from "../queries/groups.queries";
-import { Request, Response, NextFunction } from "express";
+import {Request, Response, NextFunction} from "express";
 import { logger } from "../index";
+import {check, Result, validationResult} from "express-validator";
+// import {body, validationResult} from "express-validator";
 
 export const groupList = async (_: Request, res: Response, next: NextFunction) => {
     try {
@@ -97,5 +99,66 @@ export const groupDelete = async (req: Request, res: Response, next: NextFunctio
             error: e
         });
         next(e);
+    }
+}
+
+export const validate = (req: Request, res: Response, next: NextFunction) => {
+
+    // @ts-ignore
+    const result: Result = validationResult(req).formatWith(({ msg, path }) => ({
+        msg,
+        path
+    }));
+
+    if (!result.isEmpty()) {
+        res.status(422).json({ error: result.array() });
+        logger.log({
+            level: "error",
+            message: "Error when validating",
+            error: JSON.stringify(result.array())
+        });
+    } else {
+        next();
+    }
+}
+
+export const valueToValidate = (value: String) => {
+    switch (value) {
+        case "name" : {
+            return [
+                check("name")
+                    .exists().withMessage("Enter a name please")
+                    .trim()
+                    .isLength({min : 3}).withMessage("The name must have a minimum length of 3"),
+            ] as any;
+        }
+        case "amount" : {
+            return [
+                check("amount")
+                    .isLength({min : 1}).withMessage("Enter an amount please")
+                    .trim()
+                    .exists()
+                    .isInt().not().withMessage('PLease enter a valid amount')
+                    .toInt(),
+            ] as any;
+        }
+        case "all" : {
+            return [
+                check("name")
+                    .exists().withMessage("Enter a name please")
+                    .trim()
+                    .isLength({min : 3}).withMessage("The name must have a minimum length of 3"),
+
+                check("amount")
+                    .isLength({min : 1}).withMessage("Enter an amount please")
+                    .trim()
+                    .exists()
+                    .isInt().not().withMessage('PLease enter a valid amount')
+                    .toInt(),
+            ] as any;
+        }
+        default: {
+            return [] as any;
+        }
     }
 }
