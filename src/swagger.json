@@ -1,0 +1,732 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Swagger Documentation for API NodeJS Express MongoDB Application",
+    "version": "1.0.0"
+  },
+  "schemes": ["http"],
+  "servers": [{ "url": "http://localhost:3000/" }],
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": ["Users Endpoints"],
+        "summary": "Retrieve all users",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaGetUser"
+                }
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "500": { "description": "Internal server error" }
+        }
+      },
+      "post": {
+        "tags": ["Users Endpoints"],
+        "summary": "Create a user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaCreateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "responseText": {
+                      "type": "string",
+                      "example": "The user has been created"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaErrorDuringRequest"
+                }
+              }
+            }
+          },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/users/{username}": {
+      "get": {
+        "tags": ["Users Endpoints"],
+        "summary": "Retrieve a specific user",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The user username",
+                      "example": "Aifos"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaGetUser"
+                }
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "500": { "description": "Internal server error" }
+        }
+      },
+      "delete": {
+        "tags": ["Users Endpoints"],
+        "summary": "Delete a specific user",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The user username",
+                      "example": "Aifos"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "responseText": {
+                      "type": "string",
+                      "example": "The user has been deleted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaErrorDuringRequest"
+                }
+              }
+            }
+          },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/users/edit/{username}": {
+      "put": {
+        "tags": ["Users Endpoints"],
+        "summary": "Edit a specific user",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The user username",
+                      "example": "Aifos"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json" : {
+              "schema": {
+                "properties": {
+                  "group": {
+                    "type": "string",
+                    "example": "64c628d536fcc758689b3d44",
+                    "description": "The group objectId"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "responseText": {
+                      "type": "string",
+                      "example": "The user has been edited"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaErrorDuringRequest"
+                }
+              }
+            }
+          },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/groups": {
+      "get": {
+        "tags": ["Groups Endpoints"],
+        "summary": "Retrieve all groups",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaGetGroups"
+                }
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "500": { "description": "Internal server error" }
+        }
+      },
+      "post": {
+        "tags": ["Groups Endpoints"],
+        "summary": "Create a group",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaCreateGroup"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "responseText": {
+                      "type": "string",
+                      "example": "The group has been created"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaErrorDuringRequest"
+                }
+              }
+            }
+          },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/groups/{name}": {
+      "get": {
+        "tags": ["Groups Endpoints"],
+        "summary": "Retrieve a specific group",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The group name",
+                      "example": "Fantastic group"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaGetGroups"
+                }
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "500": { "description": "Internal server error" }
+        }
+      },
+      "delete": {
+        "tags": ["Groups Endpoints"],
+        "summary": "Delete a specific group",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The group name",
+                      "example": "Fantastic group"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "responseText": {
+                      "type": "string",
+                      "example": "The group has been deleted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaErrorDuringRequest"
+                }
+              }
+            }
+          },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/groups/additional-amount/{name}": {
+      "put": {
+        "tags": ["Groups Endpoints"],
+        "summary": "Add specific amount to a specific user (Need to be connected)",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The user username",
+                      "example": "Fantastic group"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json" : {
+              "schema": {
+                "properties": {
+                  "amount": {
+                    "type": "integer",
+                    "example": 250,
+                    "description": "The amount to add"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "responseText": {
+                      "type": "string",
+                      "example": "The amount has been added"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaErrorDuringRequest"
+                }
+              }
+            }
+          },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/groups/reduced-amount/{name}": {
+      "put": {
+        "tags": ["Groups Endpoints"],
+        "summary": "Subtract specific amount to a specific user (Need to be connected)",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The user username",
+                      "example": "Fantastic group"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json" : {
+              "schema": {
+                "properties": {
+                  "amount": {
+                    "type": "integer",
+                    "example": 250,
+                    "description": "The amount to remove"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "responseText": {
+                      "type": "string",
+                      "example": "The amount has been subtracted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaErrorDuringRequest"
+                }
+              }
+            }
+          },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": ["Auth Endpoints"],
+        "summary": "Sign in",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "Aifos"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Secret!1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User logged in successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not found or wrond password"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signout": {
+      "get": {
+        "tags": ["Auth Endpoints"],
+        "summary": "Logout",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User logged out successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SchemaGetUser": {
+        "properties": {
+          "_id": {
+            "type" : "integer",
+            "description": "The user ID (ObjectID in BSON format for MongoDB documents)",
+            "example": "64c62a47245bfebbc9025c0f"
+          },
+          "local": {
+            "type": "object",
+            "properties": {
+              "username": {
+                "type": "string",
+                "example": "John doe",
+                "description": "The user username"
+              },
+              "password": {
+                "type": "string",
+                "description": "The user password"
+              }
+            }
+          },
+          "group": {
+            "type": "integer",
+            "description": "The id of the group (ObjectID in BSON format for MongoDB documents)",
+            "example": "64c549054f6ea8d6dcaf02d3"
+          }
+        }
+      },
+      "SchemaCreateUser": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "John doe"
+          },
+          "password": {
+            "type": "string",
+            "description": "The user password with at least 6 characters, 1 uppercase, 1 symbol and 1 number",
+            "example": "Secret!1"
+          }
+        }
+      },
+      "SchemaGetGroups": {
+        "properties": {
+          "_id": {
+            "type" : "integer",
+            "description": "The group ID (ObjectID in BSON format for MongoDB documents)",
+            "example": "64c62a47245bfebbc9025c0f"
+          },
+          "name": {
+            "type": "string",
+            "example": "Fantastic group"
+          },
+          "amount": {
+            "type": "integer",
+            "example": 10000
+          }
+        }
+      },
+      "SchemaCreateGroup": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Fantastic group"
+          },
+          "amount": {
+            "type": "integer",
+            "example": 10000
+          }
+        }
+      },
+      "SchemaErrorDuringRequest": {
+        "properties": {
+          "error": {
+            "properties": {
+              "msg": {
+                "type": "string",
+                "example": "This field is missing or isn't well set"
+              },
+              "path": {
+                "type": "string",
+                "example": "The name of the wrong field"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth":{
+        "type": "apiKey",
+        "in": "header",
+        "name": "Set-Cookie"
+      }
+    }
+  }
+}

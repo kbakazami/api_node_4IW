@@ -4,6 +4,8 @@ import index from './routes';
 import './database';
 import winston, {createLogger, Logger, transports} from "winston";
 import cookieParser from "cookie-parser";
+import swaggerUi from "swagger-ui-express";
+import * as swaggerDocument from "./swagger.json";
 
 dotenv.config();
 
@@ -30,6 +32,7 @@ export const logger: Logger = createLogger({
     ],
 });
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(express.json());
 app.use(urlencoded({extended: true}));
 app.use(index);

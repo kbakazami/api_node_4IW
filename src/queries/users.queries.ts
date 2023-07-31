@@ -31,7 +31,7 @@ export const createUser = async (user: UserForm) => {
 
 
 export const editUserGroup = (username: String, group: String) => {
-    const filter = { username: username };
+    const filter = { 'local.username': username };
 
     const update = { group: group };
 
@@ -39,7 +39,7 @@ export const editUserGroup = (username: String, group: String) => {
 }
 
 export const deleteUser = (username: String) => {
-    const filter = { username: username };
+    const filter = { 'local.username': username };
 
     return User.deleteOne(filter);
 }
