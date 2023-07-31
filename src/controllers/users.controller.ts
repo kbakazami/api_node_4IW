@@ -123,20 +123,10 @@ export const valueToValidate = (value: String) => {
                     .trim()
                     .isLength({min : 3}).withMessage("The username must have a minimum length of 3"),
 
-                check("local.email")
-                    .exists().withMessage("Enter an email please")
-                    .trim()
-                    .isEmail().withMessage("A valid email would be like : john.doe@gmail.com"),
-
-                check("local.password")
+                check("password")
                     .exists().withMessage("Enter a password please")
                     .trim()
                     .isStrongPassword({minLength : 6, minUppercase: 1, minSymbols: 1, minNumbers: 1}).withMessage("The password must have a minimum length of 6 with one uppercase, one symbol and one number"),
-
-                check("group")
-                    .exists().withMessage("Enter a group id please")
-                    .trim()
-                    .isMongoId().withMessage("Enter a valid id please (example : 64c549054f6ea8d6dcaf02d3"),
             ] as any;
         }
         default: {

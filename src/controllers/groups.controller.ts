@@ -138,6 +138,7 @@ export const valueToValidate = (value: String) => {
                     .isLength({min : 1}).withMessage("Enter an amount please")
                     .trim()
                     .exists()
+                    .isInt().not().withMessage('PLease enter a valid amount')
                     .toInt(),
             ] as any;
         }
@@ -152,6 +153,7 @@ export const valueToValidate = (value: String) => {
                     .isLength({min : 1}).withMessage("Enter an amount please")
                     .trim()
                     .exists()
+                    .isInt().not().withMessage('PLease enter a valid amount')
                     .toInt(),
             ] as any;
         }
