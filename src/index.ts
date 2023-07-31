@@ -1,14 +1,39 @@
-import Server from "./server";
-import express from "express";
-import "dotenv/config"
-import db from "../config/db";
+import express, {Application, urlencoded} from 'express';
+import dotenv from 'dotenv';
+import index from './routes';
+import './database';
+import winston, {createLogger, Logger, transports} from "winston";
+import cookieParser from "cookie-parser";
 
-const app = express();
+dotenv.config();
 
-// @ts-ignore
-const server = new Server(process.env.PORT);
-// @ts-ignore
-const database = new db(process.env.URI_DB);
+export const app: Application = express();
 
-database.run();
-server.start();
+app.use(cookieParser());
+import './config/jwt.config';
+
+
+
+const { combine, timestamp, json, printf } = winston.format;
+export const logger: Logger = createLogger({
+    level: 'info',
+    format: combine(
+        timestamp(),
+        json(),
+        printf((info) => `[${info.timestamp}] - [${info.level}] - Message : ${info.message} - Error : ${info.error}`)),
+    transports: [
+        new transports.File({
+            dirname: "logs",
+            filename: 'error.log',
+            level: 'error',
+        }),
+    ],
+});
+
+app.use(express.json());
+app.use(urlencoded({extended: true}));
+app.use(index);
+
+app.listen(process.env.PORT, () => {
+    console.log("Server start")
+})
