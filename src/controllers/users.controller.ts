@@ -40,7 +40,9 @@ export const userGet = async (req: Request, res: Response, next: NextFunction) =
 export const userCreate = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const body = req.body;
-        await createUser(body);
+        const user= await createUser(body);
+        // @ts-ignore
+        req.login(user);
         res.json({ message: "User created successfully" });
     } catch (e) {
         logger.log({
